@@ -149,34 +149,10 @@ public class AddEditCampaignPreset extends JPanel {
         add(backButton, BorderLayout.SOUTH);  // Add back button at the bottom
     }
 
+    // TODO: move code from initializeUI() to this function
     // function to show campaign preset info for selected campaign - updates upon selection change in dropdown
     private void showCampaignPresetInfo(String campaignName) {
 
-        JSONObject selectedPresetData = campaignPresets.getPresetData(campaignName);
-        if (selectedPresetData == null) {
-            System.err.println("Error: Preset data not found for " + campaignName);
-            return;
-        }
-
-        // clear presetPanel
-        presetPanel.removeAll();
-        presetPanel.setLayout(new FlowLayout());
-
-        // Desired layout:
-        // Campaign Name: <campaign name>
-        JLabel campaignNameLabel = new JLabel("Campaign Name: ");
-        presetPanel.add(campaignNameLabel);
-        JTextField campaignNameField = new JTextField();
-        campaignNameField.setText(campaignName);
-        presetPanel.add(campaignNameField);
-
-        // Player Data will be in columns, with each column containing:
-        // Player Name: <player name>
-        // Player ID: <player ID>
-        // Health Bar Indices: <start index> - <end index>
-        
-        presetPanel.revalidate();
-        presetPanel.repaint();
     }
     
     public static void show(JFrame frame) {

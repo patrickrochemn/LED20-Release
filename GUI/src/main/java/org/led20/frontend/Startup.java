@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Startup {
@@ -50,6 +51,14 @@ public class Startup {
                 }
                 Startup startup = new Startup();
                 frame.setContentPane(startup.createContentPane());
+                URL url = getClass().getResource("/imgs/BlueD20.jpg");
+                if (url != null) {
+                    ImageIcon icon = new ImageIcon(url);
+                    frame.setIconImage(icon.getImage());
+
+                } else {
+                    System.out.println("Error loading icon");
+                }
                 frame.revalidate();
                 frame.repaint();
                 frame.setVisible(true);
