@@ -1,11 +1,18 @@
 {
+    "C_Cpp.errorSquiggles": "Enabled",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "GUI/lib/json-simple-1.1.1.jar",
-        "g:\\Downloads\\jSerialComm-2.10.3.jar",
-        "g:\\Downloads\\json-simple-1.1.1.jar",
+        "GUI/GUI Overhaul/lib/flatlaf-2.4.jar",
+        "GUI/GUI Overhaul/lib/flatlaf-intellij-themes-2.4.jar",
+        "GUI/GUI Overhaul/lib/jSerialComm-2.9.2.jar",
+        "GUI/GUI Overhaul/lib/json-simple-1.1.1.jar",
         "GUI/lib/flatlaf-2.4.jar",
-        "GUI/lib/flatlaf-intellij-themes-2.4.jar"
+        "GUI/lib/flatlaf-intellij-themes-2.4.jar",
+        "GUI/lib/jSerialComm-2.9.2.jar",
+        "GUI/lib/json-simple-1.1.1.jar"
     ],
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms100m -Xlog:disable"
+    "maven.terminal.useJavaHome": true,
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms100m -Xlog:disable",
 }

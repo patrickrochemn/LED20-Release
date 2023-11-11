@@ -1,0 +1,44 @@
+{
+    "campaignPresets": [
+        {
+            "campaignName": "Default",
+            "players": [
+                {
+                    "name": "Player 1",
+                    "id": "12345"
+                }
+            ],
+            "healthBarIndices": [0, 59, 60, 119, 120, 179, 180, 239, 240, 299]
+        },
+        {
+            "campaignName": "War Of Ashes 2",
+            "players": [
+                {
+                    "name": "Anahel",
+                    "id": "91590052"
+                },
+                {
+                    "name": "Arlene",
+                    "id": "92881761"
+                },
+                {
+                    "name": "Blobert",
+                    "id": "83984360"
+                },
+                {
+                    "name": "Lucien",
+                    "id": "84185913"
+                },
+                {
+                    "name": "Roguen",
+                    "id": "92433451"
+                },
+                {
+                    "name": "Sharpe",
+                    "id": "83859064"
+                }
+            ],
+            "healthBarIndices": [0, 39, 40, 79, 80, 119, 120, 159, 160, 199, 200, 299]
+        }
+    ]
+}

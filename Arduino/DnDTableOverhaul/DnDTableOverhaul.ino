@@ -1,10 +1,8 @@
 #include <FastLED.h>
 
 #define NUM_LEDS 600
-#define DATA_PIN 7
-#define VOLTS          5
-#define MAX_MA       500 
-#define BRIGHTNESS  255
+#define DATA_PIN 5
+#define BRIGHTNESS  100
 #define LED_TYPE   WS2812B
 #define COLOR_ORDER   GRB
 #define AUTO_SELECT_BACKGROUND_COLOR 0
@@ -44,9 +42,9 @@ boolean doneIterating = false;  //determines when synchronous damage/healing end
 
 void setup(){
   FastLED.delay( 2000 ); //safety startup delay - probably should be set to 3000 but Patrick is impatient
-  FastLED.setMaxPowerInVoltsAndMilliamps( VOLTS, MAX_MA);
+//  FastLED.setMaxPowerInVoltsAndMilliamps( VOLTS, MAX_MA);
   FastLED.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip).setTemperature(OvercastSky);
-  FastLED.setMaxRefreshRate(100);
+  FastLED.setMaxRefreshRate(90);
   FastLED.setBrightness(  BRIGHTNESS );
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
 //  Serial.begin(115200); // opens serial port, sets data rate to 115200 bps (FOR ARTEMIS BOARDS)
