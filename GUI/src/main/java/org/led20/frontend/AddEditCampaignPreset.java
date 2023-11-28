@@ -57,78 +57,21 @@ public class AddEditCampaignPreset extends JPanel {
             String selectedCampaign = (String) campaignDropdown.getSelectedItem();
             presetPanel.removeAll();  // Clear previous content
     
+            // if the selection is a preset
             if (!selectedCampaign.equals("Create New Campaign Preset")) {
+
+                // get a panel containing the info for the preset
                 JSONObject selectedPresetData = campaignPresets.getPresetData(selectedCampaign); // load JSON of selected preset
+
                 if (selectedPresetData != null) {
-                    // Campaign Name Panel
-                    JPanel campaignNamePanel = new JPanel(new FlowLayout()); // FlowLayout for campaignNamePanel
-                    JLabel campaignNameLabel = new JLabel("Campaign Name: ");
-                    campaignNamePanel.add(campaignNameLabel);
-                    String campaignName = (String) selectedPresetData.get("campaignName");
-                    JTextField campaignNameField = new JTextField();
-                    campaignNameField.setText(campaignName);
-                    campaignNamePanel.add(campaignNameField);
-                    presetPanel.add(campaignNamePanel, BorderLayout.NORTH); // Add campaignNamePanel to the top of presetPanel
-            
-                    // Show player data in columns, with each column containing:
-                    // Create a JPanel for each column and add it to the presetPanel after populating it with the following:
-                    // loop through players in preset
-                    // for each player, add a JPanel to the presetPanel with the following:
-                    JSONArray playersArray = (JSONArray) selectedPresetData.get("players");
-                    JSONArray healthBarIndicesArray = (JSONArray) selectedPresetData.get("healthBarIndices");
-                    // copy json array into int array
-                    int[] healthBarIndices = new int[healthBarIndicesArray.size()];
-                    for (int i = 0; i < healthBarIndicesArray.size(); i++) {
-                        healthBarIndices[i] = ((Long) healthBarIndicesArray.get(i)).intValue();
-                    }
-                    // healthBarIndicesArray.forEach((healthBarIndexObj) -> {
-                    //     healthBarIndices[healthBarIndicesArray.indexOf(healthBarIndexObj)] = ((Long) healthBarIndexObj).intValue();
-                    // });
-                    JPanel playerDataPanel = new JPanel(new FlowLayout()); // FlowLayout for playerDataPanel
+                    JPanel currentPresetPanel = createPresetInfoPanel(selectedPresetData);
+    
 
-                    // go through each of the player objects in the array and make a JPanel for each
-                    for(Object playerObj : playersArray) {
-                        JSONObject player = (JSONObject) playerObj; // cast the player object to a JSONObject
-                        JPanel playerPanel = new JPanel(new FlowLayout()); // create a new JPanel for each player
-                        presetPanel.add(playerPanel); // add the playerPanel to the presetPanel
 
-                        // Player Name: <player name>
-                        JLabel playerNameLabel = new JLabel("Player Name: ");
-                        playerPanel.add(playerNameLabel);
-                        JTextField playerNameField = new JTextField();
-                        String playerName = (String) player.get("name");
-                        playerNameField.setText(playerName);
-                        playerPanel.add(playerNameField);
-                        
-                        // Player ID: <player ID>
-                        JLabel playerIDLabel = new JLabel("Player ID: ");
-                        playerPanel.add(playerIDLabel);
-                        JTextField playerIDField = new JTextField();
-                        String playerID = (String) player.get("id");
-                        playerIDField.setText(playerID);
-                        playerPanel.add(playerIDField);
-                        
-                        // Health Bar Indices: <start index> - <end index>
-                        // for player index, get the start and end indices and put them in a text field
-                        JLabel healthBarIndicesLabel = new JLabel("Health Bar Indices: ");
-                        playerPanel.add(healthBarIndicesLabel);
-                        // get index of current playerObj in playersArray
-                        int playerIndex = playersArray.indexOf(playerObj);
-                        // get the start and end indices for the health bar
-                        int startIndex = healthBarIndices[playerIndex * 2];
-                        int endIndex = healthBarIndices[playerIndex * 2 + 1];
-                        JTextField healthBarIndicesField = new JTextField();
-                        healthBarIndicesField.setText(startIndex + " - " + endIndex);
-                        playerPanel.add(healthBarIndicesField);
-
-                        // add the playerPanel to the playerDataPanel
-                        playerDataPanel.add(playerPanel);
-                    }
-                    // add the playerDataPanel to the presetPanel
-                    presetPanel.add(playerDataPanel, BorderLayout.CENTER);
                 }
             } else {
                 // TODO: Add fields to create new campaign preset
+
             }
     
             presetPanel.revalidate();  // Refresh the panel
@@ -149,9 +92,84 @@ public class AddEditCampaignPreset extends JPanel {
         add(backButton, BorderLayout.SOUTH);  // Add back button at the bottom
     }
 
-    // TODO: move code from initializeUI() to this function
-    // function to show campaign preset info for selected campaign - updates upon selection change in dropdown
-    private void showCampaignPresetInfo(String campaignName) {
+    // function to create campaign preset info panel updates upon selection change in dropdown
+    private JPanel createPresetInfoPanel (JSONObject presetData) {
+
+        // Campaign Name Panel
+        JPanel campaignNamePanel = new JPanel(new FlowLayout()); // FlowLayout for campaignNamePanel
+        JLabel campaignNameLabel = new JLabel("Campaign Name: ");
+        campaignNamePanel.add(campaignNameLabel);
+        String campaignName = (String) presetData.get("campaignName");
+        JTextField campaignNameField = new JTextField();
+        campaignNameField.setText(campaignName);
+        campaignNamePanel.add(campaignNameField);
+        presetPanel.add(campaignNamePanel, BorderLayout.NORTH); // Add campaignNamePanel to the top of presetPanel
+
+        // Show player data in columns
+        JSONArray playersArray = (JSONArray) presetData.get("players");
+        JSONArray healthBarIndicesArray = (JSONArray) presetData.get("healthBarIndices");
+        int[] healthBarIndices = new int[healthBarIndicesArray.size()];
+        // loop through players in preset
+        for (int i = 0; i < healthBarIndicesArray.size(); i++) {
+            healthBarIndices[i] = ((Long) healthBarIndicesArray.get(i)).intValue();
+        }
+
+        JPanel playerDataPanel = new JPanel(new FlowLayout()); // FlowLayout for playerDataPanel
+
+        // go through each of the player objects in the array and make a JPanel for each
+        for(Object playerObj : playersArray) {
+            JSONObject player = (JSONObject) playerObj; // cast the player object to a JSONObject
+            JPanel playerPanel = new JPanel(new FlowLayout()); // create a new JPanel for each player
+            presetPanel.add(playerPanel); // add the playerPanel to the presetPanel
+
+            // Player Name: <player name>
+            JLabel playerNameLabel = new JLabel("Player Name: ");
+            playerPanel.add(playerNameLabel);
+            JTextField playerNameField = new JTextField();
+            String playerName = (String) player.get("name");
+            playerNameField.setText(playerName);
+            playerPanel.add(playerNameField);
+            
+            // Player ID: <player ID>
+            JLabel playerIDLabel = new JLabel("Player ID: ");
+            playerPanel.add(playerIDLabel);
+            JTextField playerIDField = new JTextField();
+            String playerID = (String) player.get("id");
+            playerIDField.setText(playerID);
+            playerPanel.add(playerIDField);
+            
+            // Health Bar Indices: <start index> - <end index>
+            // for player index, get the start and end indices and put them in a text field
+            JLabel healthBarIndicesLabel = new JLabel("Health Bar Indices: ");
+            playerPanel.add(healthBarIndicesLabel);
+            // get index of current playerObj in playersArray
+            int playerIndex = playersArray.indexOf(playerObj);
+            // get the start and end indices for the health bar
+            int startIndex = healthBarIndices[playerIndex * 2];
+            int endIndex = healthBarIndices[playerIndex * 2 + 1];
+            JTextField healthBarIndicesField = new JTextField();
+            healthBarIndicesField.setText(startIndex + " - " + endIndex);
+            playerPanel.add(healthBarIndicesField);
+
+            // add the playerPanel to the playerDataPanel
+            playerDataPanel.add(playerPanel);
+        }
+                    
+        // add the playerDataPanel to the presetPanel
+        presetPanel.add(playerDataPanel, BorderLayout.CENTER);
+        
+        return presetPanel;
+    }
+
+    // TODO: add "Preview Health Bars" button to show health bars based on current user input
+    // preview button should only appear after the user has made a change to one of the healthbar fields
+    private void previewHealthBars() {
+
+    }
+
+    // TODO: add "Save Changes" button to save current user input as new preset
+    // button should appear only after the user has made a change to one or more of the fields
+    private void savePreset() {
 
     }
     
