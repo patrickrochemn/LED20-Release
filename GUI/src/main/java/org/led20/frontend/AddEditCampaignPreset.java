@@ -200,7 +200,7 @@ public class AddEditCampaignPreset extends JPanel {
 
         // write current user input as preset data
 
-        // get all user input from the fields and save it as preset data
+        // get all user input from the fields and save it as preset data/JSON
 
         // call the preview health bars function from the backend
 
