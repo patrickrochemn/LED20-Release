@@ -147,9 +147,13 @@ public class AddEditCampaignPreset extends JPanel {
             // get the start and end indices for the health bar
             int startIndex = healthBarIndices[playerIndex * 2];
             int endIndex = healthBarIndices[playerIndex * 2 + 1];
-            JTextField healthBarIndicesField = new JTextField();
-            healthBarIndicesField.setText(startIndex + " - " + endIndex);
-            playerPanel.add(healthBarIndicesField);
+            JTextField healthBarStartIndexField = new JTextField();
+            JTextField healthBarEndIndexField = new JTextField();
+            healthBarStartIndexField.setText(Integer.toString(startIndex));  
+            healthBarEndIndexField.setText(Integer.toString(endIndex));
+            playerPanel.add(healthBarStartIndexField);
+            playerPanel.add(new JLabel(" - "));
+            playerPanel.add(healthBarEndIndexField);    
 
             // add the playerPanel to the playerDataPanel
             playerDataPanel.add(playerPanel);
@@ -157,20 +161,57 @@ public class AddEditCampaignPreset extends JPanel {
                     
         // add the playerDataPanel to the presetPanel
         presetPanel.add(playerDataPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout()); // FlowLayout for buttonPanel
+
+        // Add button to preview health bars
+        // Will activate combat mode without the intro animation - just goes right to drawing health bars
+        JButton previewButton = new JButton("Preview Health Bars");
+        previewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                previewHealthBars(presetData);
+            }
+        });
+        buttonPanel.add(previewButton);
+
+        // Add button to save changes
+        // Will save the current user input as the new data for the current preset
+        JButton saveButton = new JButton("Save Changes");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                savePreset();
+            }
+        });
+        buttonPanel.add(saveButton);
+
+        // add the buttonPanel to the presetPanel
+        presetPanel.add(buttonPanel, BorderLayout.SOUTH);
         
         return presetPanel;
     }
 
     // TODO: add "Preview Health Bars" button to show health bars based on current user input
     // preview button should only appear after the user has made a change to one of the healthbar fields
-    private void previewHealthBars() {
+    private void previewHealthBars(JSONObject presetData) {
+        // save original preset data as backup
+        JSONObject originalPresetData = presetData;
 
+        // write current user input as preset data
+
+        // get all user input from the fields and save it as preset data
+
+        // call the preview health bars function from the backend
+
+        // restore original preset data
+        presetData = originalPresetData;
     }
 
     // TODO: add "Save Changes" button to save current user input as new preset
     // button should appear only after the user has made a change to one or more of the fields
     private void savePreset() {
-
+        // save user input as preset data
     }
     
     public static void show(JFrame frame) {
