@@ -1,7 +1,9 @@
 package org.led20.backend;
 
 public class DataStringBuilder {
-        // writes combat mode status, effect, player HP percentages, player death saves, and separator indices to table strip com port
+    // writes combat mode status, effect, player HP percentages, player death saves, and separator indices to table strip com port
+    
+
     public void writeToPort(boolean combatMode, char effect, byte numPlayers, byte[] playerHPPercentage, byte[][] deathSaves, byte[] separatorIndices, byte[] playerConditions, String separatorString, boolean devMode, String portName) {
         String portWriteString = "";
 
